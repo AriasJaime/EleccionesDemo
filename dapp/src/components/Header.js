@@ -1,7 +1,7 @@
 const Header = () => (
     <header className="AppHeader">
     <h1>
-    P3 - Asignatura
+    Elecciones
     </h1>
     </header>
    );
