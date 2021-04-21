@@ -1,8 +1,8 @@
 import { Drizzle } from '@drizzle/store';
-import Asignatura from './contracts/Asignatura.json'
+import Elecciones from './contracts/Elecciones.json'
 // Opciones:
 const options = {
-    contracts: [ Asignatura ],
+    contracts: [ Elecciones ],
     polls: {
         accounts: 3000,
     },

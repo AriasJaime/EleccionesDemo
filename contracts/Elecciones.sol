@@ -70,8 +70,12 @@ constructor(string memory _nombre, string memory _year){
     
 }
 
+modifier onlyAdmin() {
+    require(msg.sender == admin ,"no eres admin");
+    _;
+}
 
-function creaPartido(string memory _nombre) public returns(uint){
+function creaPartido(string memory _nombre) public onlyAdmin returns(uint){
     bytes memory bn = bytes(_nombre);
     require(bn.length != 0, "El nombre del partido no puede estar vacio");
     uint _votosIniciales = 0;
