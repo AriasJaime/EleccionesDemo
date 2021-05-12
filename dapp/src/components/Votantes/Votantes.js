@@ -14,12 +14,12 @@ const Votantes = (props) => (
             drizzleState={props.drizzleState}
             contract={"Elecciones"}
             method={"votantesLength"}
-            render={ml=>(
+            render={vl=>(
                 <table>
                     <VotantesHead/>
                     <VotantesBody drizzle={props.drizzle}
                                  drizzleState={props.drizzleState}
-                                 votantesLength={ml}/>
+                                 votantesLength={vl}/>
                 </table>
             )
             }
