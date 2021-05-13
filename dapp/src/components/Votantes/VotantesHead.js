@@ -3,6 +3,8 @@ const VotantesHead = () =>
    <tr>
         <th>#</th>
         <th>Nombre</th>
+        <th>Colegio</th>
+        <th>Mesa</th>
         <th>DNI</th>
         <th>Domicilio</th>
         <th>Votado</th>

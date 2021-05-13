@@ -9,8 +9,12 @@ contract Elecciones {
     
     string public year;
     
+    
+    //Pensar si meter idColegio e idMesa aquí
     struct DatosVotante{
         address direccion;
+        uint idColegio;
+        uint numeroMesa;
         string nombre;
         string calle;
         string dni;
@@ -23,7 +27,7 @@ contract Elecciones {
     }
     
     
-    
+    //Como crear array dentro de struct
   struct ColegioElectoral{
       uint id;
       string nombre;
@@ -37,31 +41,32 @@ contract Elecciones {
         
   struct Mesa{
       uint idColegio;
-      uint numero;
-      uint numeroGlobal;
+      uint numeroMesa;
       address presidente;
       uint numeroVotantes;
       uint numeroVotos;
       bool actaFirmada;
   }
     
-    //Partido[] public partidos;
     
   
-    
+    //Arrays con el total de votantes, partidos, presidentes ...
     address[] public votantes;
     string[] public partidos;
     address[] public presidentes;
+    Mesa[] public mesas;
+    ColegioElectoral[] public colegios;
     
     
-    Mesa[] public mesasS;
-    ColegioElectoral[] public colegiosS;
-    Mesa[][] public mesaColegio;
     
     mapping( address => DatosVotante) public datosVotante;
     mapping( string => Partido) public datosPartidos;
     mapping( uint => Mesa) public datosMesa;
     mapping( uint => ColegioElectoral) public colegioElectoral;
+    //array que dado el indice de colegio, devuelve un array con los numeros de mesa de ese colegio.
+    mapping( uint => uint[]) public mesaColegio;
+    //array que dado un numero de mesa, te devuelve un array de direcciones de sus votantes.
+    mapping( uint => address[]) public votanteMesa;
 
 constructor(string memory _nombre, string memory _year){
     
@@ -83,15 +88,16 @@ modifier onlyAdmin() {
     _;
 }
 
-function creaPartido(string memory _nombre) onlyAdmin public returns(uint){
-    bytes memory bn = bytes(_nombre);
+function creaPartido(string memory _nombrePartido) onlyAdmin public returns(uint){
+    bytes memory bn = bytes(_nombrePartido);
     require(bn.length != 0, "El nombre del partido no puede estar vacio");
     uint _votosIniciales = 0;
     
+    require(partidoExiste(_nombrePartido) == false,"El partido ya existe");
     
-    Partido memory datos= Partido(_nombre,_votosIniciales);
-    datosPartidos[_nombre]=datos;
-    partidos.push(_nombre);
+    Partido memory datos= Partido(_nombrePartido,_votosIniciales);
+    datosPartidos[_nombrePartido]=datos;
+    partidos.push(_nombrePartido);
     //partidos.push(Partido(_nombre,_votosIniciales));
     return partidos.length-1;
 }
@@ -99,8 +105,16 @@ function creaPartido(string memory _nombre) onlyAdmin public returns(uint){
 function partidosLength() public view returns(uint) {
         return partidos.length;
     }
+    
+function partidoExiste(string memory _nombrePartido) private view returns(bool){
+         string memory _bnombre = datosPartidos[_nombrePartido].nombre;
+         
+         bytes memory b = bytes(_bnombre);
+         
+         return b.length != 0 ;
+     }
 
-function creaVotante(address _direccion, string memory _nombre, string memory _calle,string memory _dni) onlyAdmin public {
+function creaVotante(address _direccion,uint _numeroMesa, string memory _nombre, string memory _calle,string memory _dni) onlyAdmin public {
         
         
         
@@ -115,17 +129,35 @@ function creaVotante(address _direccion, string memory _nombre, string memory _c
         
         bool _votado = false;
         
+        require(votanteExiste(_direccion) == false,"El colegio ya existe");
         require(_votado == false, "El usuario nuevo no debe haber votado");
         
+        uint _idColegio = datosMesa[_numeroMesa].idColegio;
        
+        //creamos el nuevo votante con sus parametros iniciales
+        DatosVotante memory datos = DatosVotante(_direccion,_idColegio,_numeroMesa,_nombre, _calle,_dni,_votado);
+        datosVotante[_direccion]=(datos);
         
-        DatosVotante memory datos = DatosVotante(_direccion,_nombre, _calle,_dni,_votado);
-        
-        datosVotante[_direccion] = datos;
-        
+        //metemos el votante en el array global con todos los votantes, y luego en el arrya que asigna numero de mesa a votantes
         votantes.push(_direccion);
+        votanteMesa[_numeroMesa].push(_direccion);
+        
+        mesas[_numeroMesa].numeroVotantes ++;
+        datosMesa[_numeroMesa].numeroVotantes ++;
+        colegios[_idColegio].numeroVotantes ++;
+        colegioElectoral[_idColegio].numeroVotantes ++;
+        
+        
         
     }
+    
+    function votanteExiste(address _direccion) private view returns(bool){
+         string memory _bnombre = datosVotante[_direccion].nombre;
+         
+         bytes memory b = bytes(_bnombre);
+         
+         return b.length != 0 ;
+     }
 
 
     function votantesLength() public view returns(uint) {
@@ -134,10 +166,18 @@ function creaVotante(address _direccion, string memory _nombre, string memory _c
     
     function votaPartido(address _direccionVotante, string memory _partido) public{
         
-        
+        require(partidoExiste(_partido) == true,"El partido no existe");
+        require(votanteExiste(_direccionVotante) == true,"El votante no existe");
         require(datosVotante[_direccionVotante].votado == false, "El votante ya ha votado");
         datosPartidos[_partido].votos ++;
         datosVotante[_direccionVotante].votado = true;
+        
+        //actualizar el numero de votos dentro de los colegios y las mesas correspondientes a ese votante;
+        mesas[datosVotante[_direccionVotante].numeroMesa].numeroVotos ++;
+        datosMesa[datosVotante[_direccionVotante].numeroMesa].numeroVotos ++;
+        colegios[datosVotante[_direccionVotante].idColegio].numeroVotos ++;
+        colegioElectoral[datosVotante[_direccionVotante].idColegio].numeroVotos ++;
+        
     }
 
 
@@ -146,7 +186,7 @@ function creaVotante(address _direccion, string memory _nombre, string memory _c
 Faltan comprobaciones de atributos , modificadores y si la mesa está creada
 crear presidente aquí??? como crear address vacía
 */
-    function creaMesa(uint _idColegio) public{
+    function creaMesa(uint _idColegio) onlyAdmin public{
         
         // bytes memory bc = bytes(_colegio);
         // require(bc.length != 0, "El colegio no puede ser vacio");
@@ -155,7 +195,7 @@ crear presidente aquí??? como crear address vacía
        // Array temporal, copia de las mesas que hay en el colegio dado en el parametro
         
         
-        Mesa[] storage P = mesaColegio[_idColegio];
+        
         
         address _presidente = 0x0000000000000000000000000000000000000000;
         uint _numeroVotantes = 0;
@@ -166,32 +206,28 @@ crear presidente aquí??? como crear address vacía
         require(_numeroVotantes == 0, "El numero de votantes iniciales debe ser 0");
         
         //Cogemos el length del numero de mesas de ese colegio, sera el numero de la nueva mesa
+        uint _numeroMesa = mesas.length;
         
-        uint _numero = mesaColegio[_idColegio].length;
-        uint _numeroGlobal = mesasS.length;
+        Mesa memory mesa = Mesa(_idColegio,_numeroMesa,_presidente,_numeroVotantes,_numeroVotos,_actaFirmada);
         
-        Mesa memory mesa = Mesa(_idColegio,_numero,_numeroGlobal,_presidente,_numeroVotantes,_numeroVotos,_actaFirmada);
+        datosMesa[_numeroMesa] = mesa;
         
-        datosMesa[_numeroGlobal] = mesa;
-        
-        mesasS.push(mesa);
+        mesas.push(mesa);
         
         /*
         Metemos la nueva mesa en el array temporal
         despues metemos el array temporal con la nueva mesa en el colegio deseado
         */
         
-        P.push(mesa);
-        mesaColegio[_idColegio] = P; 
+        mesaColegio[_idColegio].push(_numeroMesa);
+        colegios[_idColegio].numeroMesas++;
+        colegioElectoral[_idColegio].numeroMesas++;
         
-        
-        
-    }
-
-    function mesasLength() public view returns(uint) {
-        return mesasS.length;
     }
     
+    function mesasLength() public view returns(uint) {
+        return mesas.length;
+    }
     
     
     function creaColegio(uint id, string memory _nombre,string memory _direccion) onlyAdmin public{
@@ -211,9 +247,9 @@ crear presidente aquí??? como crear address vacía
         
         ColegioElectoral memory colegio = ColegioElectoral(id,_nombre,_admin,_direccion,numeroMesas,numeroVotantes,numeroVotos);
         colegioElectoral[id]= colegio;
-        colegiosS.push(colegio);
-        //creamos un nuevo colegio vacio en el array mesaColegio
-        mesaColegio.push();
+        colegios.push(colegio);
+        
+        
         
     }
     
@@ -235,16 +271,16 @@ crear presidente aquí??? como crear address vacía
     
     /*
     
-    Asigna presidente a la mesa, pero si la mesa no está creada, la crea solo con el presidente
-    Que pasa si creo el mismo presidente en otra mesa??
+    - meter presidente en colegioMesa
+    -Que pasa si creo el mismo presidente en otra mesa??
     
     */
-    function presidenteMesa(address _direccionPresidente,uint  _numeroMesa) public{
+    function asignaPresidenteMesa(address _direccionPresidente,uint  _numeroMesa) onlyAdmin public{
         
         
         
         datosMesa[_numeroMesa].presidente = _direccionPresidente;
-        mesasS[_numeroMesa].presidente =_direccionPresidente;
+        mesas[_numeroMesa].presidente =_direccionPresidente;
         presidentes.push(_direccionPresidente);
         
     }

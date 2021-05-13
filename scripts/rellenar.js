@@ -26,32 +26,13 @@ module.exports = async callback => {
         console.log("Cuenta del PSOE =", psoeAccount);
         console.log("Cuenta de Podemos =", podemosAccount);
         console.log("Cuenta de Ciudadanos =", csAccount);
-        console.log("admin1=",admin)
         await elecciones.creaPartido("PP",{from: admin});
-        console.log("admin2=",admin)
         await elecciones.creaPartido("PSOE");
         await elecciones.creaPartido("Podemos");
         await elecciones.creaPartido("Ciudadanos");
         let partidos = await elecciones.partidosLength();
         console.log(partidos)
         
-
-        //crear votantes
-        console.log("Crear votantes:");
-        let jaimeAccount = accounts[5];
-        let carlosAccount = accounts[6];
-        let juanaAccount = accounts[7];
-        let mariaAccount = accounts[8];
-        console.log("Cuenta de Jaime =", jaimeAccount);
-        console.log("Cuenta de Carlos =", carlosAccount);
-        console.log("Cuenta de Juana =", juanaAccount);
-        console.log("Cuenta de Maria =", mariaAccount);
-        await elecciones.creaVotante(jaimeAccount,"Jaime","José Abascal 8", "123456789A");
-        await elecciones.creaVotante(carlosAccount,"Carlos","Iglesia 2", "123456789B");
-        await elecciones.creaVotante(juanaAccount,"Juana Jimenez","Rafael Calvo 12", "123456789C");
-        await elecciones.creaVotante(mariaAccount,"María gutierrez","Alonso Cano 1", "123456789D");
-        let votantes = await elecciones.votantesLength();
-        console.log(votantes)
 
         //crea Colegio
         await elecciones.creaColegio(0,"Chamberi","Rafael Calvo 12");
@@ -95,19 +76,57 @@ module.exports = async callback => {
         console.log("Cuenta de presidente8 =", presidente8);
         console.log("Cuenta de presidente9 =", presidente9);
         console.log("Cuenta de presidente10 =", presidente10);
-        await elecciones.presidenteMesa(presidente1,"0")
-        await elecciones.presidenteMesa(presidente2,"1")
-        await elecciones.presidenteMesa(presidente3,"2")
-        await elecciones.presidenteMesa(presidente4,"3")
-        await elecciones.presidenteMesa(presidente5,"4")
-        await elecciones.presidenteMesa(presidente6,"5")
-        await elecciones.presidenteMesa(presidente7,"6")
-        await elecciones.presidenteMesa(presidente8,"7")
-        await elecciones.presidenteMesa(presidente9,"8")
-        await elecciones.presidenteMesa(presidente10,"9")
+        await elecciones.asignaPresidenteMesa(presidente1,"0")
+        await elecciones.asignaPresidenteMesa(presidente2,"1")
+        await elecciones.asignaPresidenteMesa(presidente3,"2")
+        await elecciones.asignaPresidenteMesa(presidente4,"3")
+        await elecciones.asignaPresidenteMesa(presidente5,"4")
+        await elecciones.asignaPresidenteMesa(presidente6,"5")
+        await elecciones.asignaPresidenteMesa(presidente7,"6")
+        await elecciones.asignaPresidenteMesa(presidente8,"7")
+        await elecciones.asignaPresidenteMesa(presidente9,"8")
+        await elecciones.asignaPresidenteMesa(presidente10,"9")
 
 
-        
+        //crear votantes
+        console.log("Crear votantes:");
+        let jaimeAccount = accounts[5];
+        let carlosAccount = accounts[6];
+        let juanaAccount = accounts[7];
+        let mariaAccount = accounts[8];
+        let pedroAccount = accounts[20];
+        let jimenaAccount = accounts[21];
+        let luciaAccount = accounts[22];
+        let miriamAccount = accounts[23];
+        let lauraAccount = accounts[24];
+        let chascaAccount = accounts[25];
+        let lucasAccount = accounts[26];
+        let pacoAccount = accounts[27];
+        console.log("Cuenta de Jaime =", jaimeAccount);
+        console.log("Cuenta de Carlos =", carlosAccount);
+        console.log("Cuenta de Juana =", juanaAccount);
+        console.log("Cuenta de Pedro =", pedroAccount);
+        console.log("Cuenta de Jimena =", jimenaAccount);
+        console.log("Cuenta de Lucia =", luciaAccount);
+        console.log("Cuenta de Miriam =", miriamAccount);
+        console.log("Cuenta de Laura =", lauraAccount);
+        console.log("Cuenta de Chasca =", chascaAccount);
+        console.log("Cuenta de Lucas =", lucasAccount);
+        console.log("Cuenta de Paco =", pacoAccount);
+        await elecciones.creaVotante(jaimeAccount,"0","Jaime","José Abascal 8", "123456789A");
+        await elecciones.creaVotante(carlosAccount,"1","Carlos","Iglesia 2", "123456789B");
+        await elecciones.creaVotante(juanaAccount,"0","Juana Jimenez","Rafael Calvo 12", "123456789C");
+        await elecciones.creaVotante(mariaAccount,"3","María gutierrez","Alonso Cano 1", "123456789D");
+        await elecciones.creaVotante(pedroAccount,"2","Pedro","Alonso Cano 1", "123456789F");
+        await elecciones.creaVotante(jimenaAccount,"10","Jimena","Alonso Cano 1", "123456789D");
+        await elecciones.creaVotante(luciaAccount,"5","lucia","Alonso Cano 1", "123456789D");
+        await elecciones.creaVotante(miriamAccount,"10","Miriam","Alonso Cano 1", "123456789D");
+        await elecciones.creaVotante(lauraAccount,"0","Laura","Alonso Cano 1", "123456789D");
+        await elecciones.creaVotante(chascaAccount,"9","Chasca ","Alonso Cano 1", "123456789D");
+        await elecciones.creaVotante(lucasAccount,"8","Lucas ","Alonso Cano 1", "123456789D");
+        await elecciones.creaVotante(pacoAccount,"1","Paco ","Alonso Cano 1", "123456789D");
+        let votantes = await elecciones.votantesLength();
+        console.log(votantes);
         
 
 

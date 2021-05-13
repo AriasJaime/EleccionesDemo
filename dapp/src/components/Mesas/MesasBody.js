@@ -12,7 +12,7 @@ const MesasBody = (props) => {
             drizzle={drizzle}
             drizzleState={drizzleState}
             contract={"Elecciones"}
-            method={"mesasS"}
+            method={"mesas"}
             methodArgs={[i]}
             render={id => <MesasRow drizzle={drizzle}
                                        drizzleState={drizzleState}

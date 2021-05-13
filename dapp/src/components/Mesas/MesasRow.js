@@ -12,11 +12,10 @@ const MesasRow = (props) => {
             drizzleState={drizzleState}
             contract={"Elecciones"}
             method={"datosMesa"}
-            methodArgs={[mesaId.numeroGlobal]}
+            methodArgs={[mesaId.numeroMesa]}
             render={datos => <>
                 <td>{datos.idColegio}</td>
-                <td>{datos.numero}</td>
-                <td>{datos.numeroGlobal}</td>
+                <td>{datos.numeroMesa}</td>
                 <td>{datos.presidente}</td>
                 <td>{datos.numeroVotantes}</td>
                 <td>{datos.numeroVotos}</td>
