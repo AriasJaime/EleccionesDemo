@@ -169,6 +169,11 @@ function creaVotante(address _direccion,uint _numeroMesa, string memory _nombre,
         return votantes.length;
     }
     
+    function votanteMesaLength(uint _numeroMesa) public view returns(uint) {
+        return votanteMesa[_numeroMesa].length;
+    }
+    
+    
     function votaPartido(address _direccionVotante, string memory _partido) public{
         
         require(partidoExiste(_partido) == true,"El partido no existe");
@@ -271,6 +276,9 @@ crear presidente aquí??? como crear address vacía
      }
     
     
+    function mesaColegioLength(uint _idColegio) public view returns(uint) {
+        return mesaColegio[_idColegio].length;
+    }
     
     
     

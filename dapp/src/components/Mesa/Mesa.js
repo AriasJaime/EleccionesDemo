@@ -1,30 +1,34 @@
 import{newContextComponents} from "@drizzle/react-components";
-import MesasHead from "./MesasHead";
-import MesasBody from "./MesasBody";
+import MesaHead from "./MesaHead";
+import MesaBody from "./MesaBody";
 
 const{ContractData}=newContextComponents;
 
-const Mesas = (props) => (
-    <section className="AppMesas">
-        <h2>
-            Mesas
-        </h2>
+const Mesa = (props) => {
+    const {drizzle, drizzleState, mesaPresi} = props;
+        return(
+        <section className="AppMesa">
+            <h2>
+                Mesa número: {mesaPresi}
+            </h2>
         <ContractData
-            drizzle={props.drizzle}
-            drizzleState={props.drizzleState}
+            drizzle={drizzle}
+            drizzleState={drizzleState}
             contract={"Elecciones"}
-            method={"mesasLength"}
-            render={ml=>(
+            method={"votanteMesaLength"}
+            methodArgs={[mesaPresi]}
+            render={vl=>(
                 <table>
-                    <MesasHead/>
-                    <MesasBody drizzle={props.drizzle}
+                    <MesaHead/>
+                    <MesaBody drizzle={props.drizzle}
                                  drizzleState={props.drizzleState}
-                                 mesasLength={ml}/>
+                                 votantesLength={vl}
+                                 mesaPresi={mesaPresi}/>
                 </table>
             )
             }
             />
     </section>
-);
-
-export default Mesas;
+    )
+}
+export default Mesa;

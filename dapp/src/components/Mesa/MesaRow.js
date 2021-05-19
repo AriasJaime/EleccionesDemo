@@ -2,24 +2,26 @@ import {newContextComponents} from "@drizzle/react-components";
 
 const {ContractData} = newContextComponents;
 
-const MesasRow = (props) => {
-    const {drizzle, drizzleState, mesaIndex, mesaId} = props;
-    return <tr key={"MESA-" + mesaIndex}>
-        <th>M<sub>{mesaIndex}</sub></th>
+const MesaRow = (props) => {
+    const {drizzle, drizzleState, votanteIndex, votanteAddr} = props;
+    return <tr key={"VOT-" + votanteIndex}>
+        <th>V<sub>{votanteIndex}</sub></th>
 
         <ContractData
             drizzle={drizzle}
             drizzleState={drizzleState}
             contract={"Elecciones"}
-            method={"datosMesa"}
-            methodArgs={[mesaId.numeroMesa]}
+            method={"datosVotante"}
+            methodArgs={[votanteAddr]}
             render={datos => <>
-                <td>{datos.idColegio}</td>
+            
                 <td>{datos.numeroMesa}</td>
-                <td>{datos.presidente}</td>
-                <td>{datos.numeroVotantes}</td>
-                <td>{datos.numeroVotos}</td>
-                <td>{datos.actaFirmada}</td>
+                <td>{datos.idColegio}</td>
+                <td>{datos.nombre}</td>
+                <td>{datos.dni}</td>
+                <td>{datos.calle}</td>
+                <td>{datos.votado? "Sí" : "No"}</td>
+                <td>{datos.direccion}</td>
             </>}
         />
 
@@ -27,4 +29,4 @@ const MesasRow = (props) => {
     </tr>;
 };
 
-export default MesasRow;
+export default MesaRow;
