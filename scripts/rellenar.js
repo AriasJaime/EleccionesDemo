@@ -76,16 +76,16 @@ module.exports = async callback => {
         console.log("Cuenta de presidente8 =", presidente8);
         console.log("Cuenta de presidente9 =", presidente9);
         console.log("Cuenta de presidente10 =", presidente10);
-        await elecciones.asignaPresidenteMesa(presidente1,"0")
-        await elecciones.asignaPresidenteMesa(presidente2,"1")
-        await elecciones.asignaPresidenteMesa(presidente3,"2")
-        await elecciones.asignaPresidenteMesa(presidente4,"3")
-        await elecciones.asignaPresidenteMesa(presidente5,"4")
-        await elecciones.asignaPresidenteMesa(presidente6,"5")
-        await elecciones.asignaPresidenteMesa(presidente7,"6")
-        await elecciones.asignaPresidenteMesa(presidente8,"7")
-        await elecciones.asignaPresidenteMesa(presidente9,"8")
-        await elecciones.asignaPresidenteMesa(presidente10,"9")
+        await elecciones.asignaPresidenteMesa("presi1",presidente1,"0")
+        await elecciones.asignaPresidenteMesa("presi2",presidente2,"1")
+        await elecciones.asignaPresidenteMesa("presi3",presidente3,"2")
+        await elecciones.asignaPresidenteMesa("presi4",presidente4,"3")
+        await elecciones.asignaPresidenteMesa("presi5",presidente5,"4")
+        await elecciones.asignaPresidenteMesa("presi6",presidente6,"5")
+        await elecciones.asignaPresidenteMesa("presi7",presidente7,"6")
+        await elecciones.asignaPresidenteMesa("presi8",presidente8,"7")
+        await elecciones.asignaPresidenteMesa("presi9",presidente9,"8")
+        await elecciones.asignaPresidenteMesa("presi10",presidente10,"9")
 
 
         //crear votantes

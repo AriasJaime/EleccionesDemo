@@ -20,6 +20,13 @@ contract Elecciones {
         string dni;
         bool votado;
     }
+
+    struct DatosPresidente{
+        string nombre;
+        address direccion;
+        uint numeroMesa;
+        uint idColegio;
+    }
     
     struct Partido{
         string nombre;
@@ -56,9 +63,7 @@ contract Elecciones {
     address[] public presidentes;
     Mesa[] public mesas;
     ColegioElectoral[] public colegios;
-    
-    
-    
+        
     mapping( address => DatosVotante) public datosVotante;
     mapping( string => Partido) public datosPartidos;
     mapping( uint => Mesa) public datosMesa;
@@ -67,7 +72,7 @@ contract Elecciones {
     mapping( uint => uint[]) public mesaColegio;
     //array que dado un numero de mesa, te devuelve un array de direcciones de sus votantes.
     mapping( uint => address[]) public votanteMesa;
-
+    mapping( address => DatosPresidente) public datosPresidente;
 constructor(string memory _nombre, string memory _year){
     
     bytes memory bn = bytes(_nombre);
@@ -129,7 +134,7 @@ function creaVotante(address _direccion,uint _numeroMesa, string memory _nombre,
         
         bool _votado = false;
         
-        require(votanteExiste(_direccion) == false,"El colegio ya existe");
+        require(votanteExiste(_direccion) == false,"El votante ya existe");
         require(_votado == false, "El usuario nuevo no debe haber votado");
         
         uint _idColegio = datosMesa[_numeroMesa].idColegio;
@@ -275,16 +280,54 @@ crear presidente aquí??? como crear address vacía
     -Que pasa si creo el mismo presidente en otra mesa??
     
     */
-    function asignaPresidenteMesa(address _direccionPresidente,uint  _numeroMesa) onlyAdmin public{
+    function asignaPresidenteMesa(string memory _nombre,address _direccionPresidente,uint  _numeroMesa) onlyAdmin public{
         
         
         
         datosMesa[_numeroMesa].presidente = _direccionPresidente;
         mesas[_numeroMesa].presidente =_direccionPresidente;
         presidentes.push(_direccionPresidente);
-        
+        uint _idColegio = mesas[_numeroMesa].idColegio;
+        datosPresidente[_direccionPresidente] = DatosPresidente(_nombre,_direccionPresidente,_numeroMesa,_idColegio);
     }
+
+    function presidenteExiste(address _direccion) public view returns(bool){
+         string memory _bnombre = datosPresidente[_direccion].nombre;
+         
+         bytes memory b = bytes(_bnombre);
+         
+         return b.length != 0 ;
+     }
     
+    function quienSoy()  public view returns (string memory _nombre, address _direccion,uint _idColegio, uint _numeroMesa,string memory _rol) {
+        DatosVotante memory datosV = datosVotante[msg.sender];
+        DatosPresidente memory datosP = datosPresidente[msg.sender];
+        if(votanteExiste(msg.sender) == true){
+            _nombre = datosV.nombre;
+            _direccion = datosV.direccion;
+            _idColegio = datosV.idColegio;
+            _numeroMesa= datosV.numeroMesa;
+            _rol = "Votante";
+        }else if(presidenteExiste(msg.sender)){
+            _nombre = datosP.nombre;
+            _direccion = datosP.direccion;
+            _idColegio = datosP.idColegio;
+            _numeroMesa= datosP.numeroMesa;
+            _rol = "Presidente";
+        }else if(msg.sender == admin){
+        _nombre="admin";
+        _direccion=admin;
+        _idColegio=0;
+        _numeroMesa=0;
+        _rol="Administrador";
+        }else{
+        _nombre="Usuario no registrado";
+        _direccion=0x0000000000000000000000000000000000000000;
+        _idColegio=0;
+        _numeroMesa=0;
+        _rol="Usuario no registrado";    
+        }
+    }
     
     
     function uint2str(uint _i) internal pure returns (string memory _uintAsString) {

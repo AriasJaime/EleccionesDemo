@@ -10,6 +10,7 @@ import Empezar from './Empezar/Empezar';
 import Votantes from './Votantes/Votantes';
 import Resultados from './Resultados/Resultados';
 import Mesas from './Mesas/Mesas';
+import MisCosas from './MisCosas/MisCosas';
 
 const Navegacion = () => (
   <nav>
@@ -19,6 +20,7 @@ const Navegacion = () => (
       <li><Link to="/votantes">Votantes</Link></li>
       <li><Link to="/mesas">Mesas</Link></li>
       <li><Link to="/resultados">Resultados</Link></li>
+      <li><Link to="/miscosas">MisCosas</Link></li>
       <li><Link to="/empezar">Empezar/Terminar</Link></li>
     </ul>
   </nav>
@@ -51,6 +53,9 @@ function App() {
         </Route>
         <Route path="/votantes/">
         <Votantes     drizzle={drizzle} drizzleState={drizzleState}/>
+        </Route>
+        <Route path="/miscosas/">
+        <MisCosas      drizzle={drizzle} drizzleState={drizzleState}/>
         </Route>
         <Route path="/empezar/">
         <Empezar      drizzle={drizzle} drizzleState={drizzleState}/>
