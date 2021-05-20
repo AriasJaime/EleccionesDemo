@@ -1,6 +1,6 @@
 import {newContextComponents} from "@drizzle/react-components";
 import Mesa from "../Mesa/Mesa";
-const {ContractData} = newContextComponents;
+const {ContractData,ContractForm} = newContextComponents;
 
 const MisFunciones = ({drizzle, drizzleState}) => {
 
@@ -22,11 +22,8 @@ const MisFunciones = ({drizzle, drizzleState}) => {
                         )
                     }else if(datos._rol === "Votante"){
                         return(
-                        <>
-                        <li>Dirección: <span style={{color: "blue"}}>{(datos && datos._direccion) || "Usuario no registrado"}</span></li>
-                        <li>Colegio electoral asignado: <span style={{color: "blue"}}>{(datos && datos._idColegio) || "Usuario no registrado"}</span></li>
-                        <li>Mesa electoral asignada: <span style={{color: "blue"}}>{(datos && datos._numeroMesa) || "Usuario no registrado"}</span></li>
-                        </>
+                        <ContractForm drizzle={drizzle} drizzleState={drizzleState}
+                        contract="Elecciones" method="votaPartido"/>
                         )
                     }else if(datos._rol === "Administrador"){
                         return(

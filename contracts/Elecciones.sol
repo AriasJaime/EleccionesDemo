@@ -179,6 +179,7 @@ function creaVotante(address _direccion,uint _numeroMesa, string memory _nombre,
         require(partidoExiste(_partido) == true,"El partido no existe");
         require(votanteExiste(_direccionVotante) == true,"El votante no existe");
         require(datosVotante[_direccionVotante].votado == false, "El votante ya ha votado");
+        require(_direccionVotante == msg.sender,"La direccion introducida no es la tuya");
         datosPartidos[_partido].votos ++;
         datosVotante[_direccionVotante].votado = true;
         
@@ -190,7 +191,7 @@ function creaVotante(address _direccion,uint _numeroMesa, string memory _nombre,
         
     }
 
-
+    
 
 /* 
 Faltan comprobaciones de atributos , modificadores y si la mesa está creada
