@@ -8,6 +8,7 @@ const MesasHead = () =>
         <th>Numero Votantes</th>
         <th>Numero Votos</th>
         <th>Acta Firmada</th>
+        <th></th>
    </tr> 
 </thead>
 export default MesasHead;

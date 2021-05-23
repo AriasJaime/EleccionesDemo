@@ -11,14 +11,17 @@ import Votantes from './Votantes/Votantes';
 import Resultados from './Resultados/Resultados';
 import Mesas from './Mesas/Mesas';
 import MisCosas from './MisCosas/MisCosas';
+import Colegios from './Colegios/Colegios';
+import React, { useState } from 'react';
 
 import {newContextComponents} from "@drizzle/react-components";
 
 const {ContractData} = newContextComponents;
 
+
 const Navegacion = (props) => {
-  const {rol} = props;
-  if(rol === "Administrador"){
+  const {rol,cole} = props;
+  if(rol === "Administrador" && cole === 99){
   return(
   <nav>
     <ul>
@@ -27,22 +30,44 @@ const Navegacion = (props) => {
       <li><Link to="/votantes">Votantes</Link></li>
       <li><Link to="/mesas">Mesas</Link></li>
       <li><Link to="/resultados">Resultados</Link></li>
-      <li><Link to="/miscosas">MisCosas</Link></li>
+      <li><Link to="/miscosas">Mis Cosas</Link></li>
       <li><Link to="/empezar">Empezar/Terminar</Link></li>
     </ul>
   </nav>
   )
+  }else if(rol === "Administrador" && cole !== 99){
+    return(
+      <nav>
+        <ul>
+          <li><Link to="/">Home</Link></li>
+          <li><Link to="/candidatos">Candidatos</Link></li>
+          <li><Link to="/votantes">Votantes</Link></li>
+          <li><Link to="/mesas">Mesas</Link></li>
+          <li><Link to="/resultados">Resultados</Link></li>
+          <li><Link to="/miscosas">Mis Cosas</Link></li>
+          <li><Link to="/empezar">Empezar/Terminar</Link></li>
+        </ul>
+      </nav>
+      )
   }else{
     return(
       <nav>
         <ul>
-          <li><Link to="/miscosas">MisCosas</Link></li>
+          <li><Link to="/miscosas">Votar</Link></li>
         </ul>
       </nav>
       )
   }
 }
+
+
+
+
+  
+
 function App() {
+  
+  const [cole,setCount] = useState(99);
   return (
     <DrizzleContext.Consumer>
       {drizzleContext => {
@@ -53,30 +78,36 @@ function App() {
  return (
    
   <ContractData drizzle={drizzle} 
-  drizzleState={drizzleState} contract={"Elecciones"}
+  drizzleState={drizzleState}
+  cole={cole}
+  setCount={setCount}
+  contract={"Elecciones"}
   method={"quienSoy"}
   methodArgs={[]}
   render={datos => {
-    if(datos._rol === "Administrador"){
+    if(datos._rol === "Administrador" && cole === 99){
+      console.log(cole)
+      console.log(datos._rol)
       return(
         <div className="App">
               <Router>        
                 <Header       drizzle={drizzle} drizzleState={drizzleState}/>
-                <Navegacion drizzle={drizzle} drizzleState={drizzleState} rol={datos._rol}/>
+                <Navegacion cole={cole} drizzle={drizzle} drizzleState={drizzleState} rol={datos._rol}/>
                 <Route path="/" exact>
-                  <p>Bienvenido a las elecciones</p>
+                  <h1>Bienvenido a las elecciones</h1>
+                  <Colegios cole={cole} setCount={setCount} drizzle={drizzle} drizzleState={drizzleState}/>
                 </Route>
                 <Route path="/candidatos/">
                   <Candidatos   drizzle={drizzle} drizzleState={drizzleState}/>
                 </Route>
                 <Route path="/mesas/">
-                  <Mesas        drizzle={drizzle} drizzleState={drizzleState}/>
+                  <Mesas    cole={cole}    drizzle={drizzle} drizzleState={drizzleState}/>
                 </Route>
                 <Route path="/resultados/">
-                <Resultados   drizzle={drizzle} drizzleState={drizzleState}/>
+                <Resultados  cole={cole}  drizzle={drizzle} drizzleState={drizzleState}/>
                 </Route>
                 <Route path="/votantes/">
-                <Votantes     drizzle={drizzle} drizzleState={drizzleState}/>
+                <Votantes    cole={cole} drizzle={drizzle} drizzleState={drizzleState}/>
                 </Route>
                 <Route path="/miscosas/">
                 <MisCosas      drizzle={drizzle} drizzleState={drizzleState}/>
@@ -89,7 +120,71 @@ function App() {
               
             </div>
       )
-    }else{
+    // }else if(datos._rol === "Administrador" && cole === 1){
+    //   <Router>        
+    //             <Header       drizzle={drizzle} drizzleState={drizzleState}/>
+    //             <Navegacion drizzle={drizzle} drizzleState={drizzleState} rol={datos._rol}/>
+    //             <Route path="/" exact>
+    //               <p>Bienvedasdsalas elecciones</p>
+    //               <Colegios cole={cole} setCount={setCount} drizzle={drizzle} drizzleState={drizzleState}/>
+    //             </Route>
+    //             <Route path="/candidatos/">
+    //               <Candidatos   drizzle={drizzle} drizzleState={drizzleState}/>
+    //             </Route>
+    //             <Route path="/mesas/">
+    //               <Mesas        drizzle={drizzle} drizzleState={drizzleState}/>
+    //             </Route>
+    //             <Route path="/resultados/">
+    //             <Resultados   drizzle={drizzle} drizzleState={drizzleState}/>
+    //             </Route>
+    //             <Route path="/votantes/">
+    //             <Votantes     drizzle={drizzle} drizzleState={drizzleState}/>
+    //             </Route>
+    //             <Route path="/miscosas/">
+    //             <MisCosas      drizzle={drizzle} drizzleState={drizzleState}/>
+    //             </Route>
+    //             <Route path="/empezar/">
+    //             <Empezar      drizzle={drizzle} drizzleState={drizzleState}/>
+    //             </Route>
+                
+    //           </Router>
+    }else if(datos._rol === "Administrador" && cole !== 99 ){
+      console.log(cole)
+      console.log(datos._rol)
+      return(
+        <div className="App">
+              <Router>        
+                <Header       drizzle={drizzle} drizzleState={drizzleState}/>
+                <Navegacion cole={cole} drizzle={drizzle} drizzleState={drizzleState} rol={datos._rol}/>
+                <Route path="/" exact>
+                  <h1>Se encuentra en el colegio {cole}</h1>
+                  <Colegios cole={cole} setCount={setCount} drizzle={drizzle} drizzleState={drizzleState}/>
+                </Route>
+                <Route path="/candidatos/">
+                  <Candidatos   drizzle={drizzle} drizzleState={drizzleState}/>
+                </Route>
+                <Route path="/mesas/">
+                  <Mesas     cole={cole} drizzle={drizzle} drizzleState={drizzleState}/>
+                </Route>
+                <Route path="/resultados/">
+                <Resultados  cole={cole} drizzle={drizzle} drizzleState={drizzleState}/>
+                </Route>
+                <Route path="/votantes/">
+                <Votantes   cole={cole}  drizzle={drizzle} drizzleState={drizzleState}/>
+                </Route>
+                <Route path="/miscosas/">
+                <MisCosas      drizzle={drizzle} drizzleState={drizzleState}/>
+                </Route>
+                <Route path="/empezar/">
+                <Empezar      drizzle={drizzle} drizzleState={drizzleState}/>
+                </Route>
+                
+              </Router>
+              
+            </div>
+      )
+    
+  }else{
       return(
         <Router>        
                 <Header       drizzle={drizzle} drizzleState={drizzleState}/>

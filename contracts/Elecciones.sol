@@ -10,7 +10,6 @@ contract Elecciones {
     string public year;
     
     
-    //Pensar si meter idColegio e idMesa aquí
     struct DatosVotante{
         address direccion;
         uint idColegio;
@@ -72,6 +71,8 @@ contract Elecciones {
     mapping( uint => uint[]) public mesaColegio;
     //array que dado un numero de mesa, te devuelve un array de direcciones de sus votantes.
     mapping( uint => address[]) public votanteMesa;
+    //array que dado un numero de colegio, te devuelve un array de direcciones de sus votantes.
+    mapping( uint => address[]) public votanteColegio;
     mapping( address => DatosPresidente) public datosPresidente;
 constructor(string memory _nombre, string memory _year){
     
@@ -146,6 +147,7 @@ function creaVotante(address _direccion,uint _numeroMesa, string memory _nombre,
         //metemos el votante en el array global con todos los votantes, y luego en el arrya que asigna numero de mesa a votantes
         votantes.push(_direccion);
         votanteMesa[_numeroMesa].push(_direccion);
+        votanteColegio[_idColegio].push(_direccion);
         
         mesas[_numeroMesa].numeroVotantes ++;
         datosMesa[_numeroMesa].numeroVotantes ++;
@@ -172,6 +174,10 @@ function creaVotante(address _direccion,uint _numeroMesa, string memory _nombre,
     function votanteMesaLength(uint _numeroMesa) public view returns(uint) {
         return votanteMesa[_numeroMesa].length;
     }
+
+    function votanteColegioLength(uint _idColegio) public view returns(uint) {
+        return votanteMesa[_idColegio].length;
+    }
     
     
     function votaPartido(address _direccionVotante, string memory _partido) public{
@@ -191,7 +197,7 @@ function creaVotante(address _direccion,uint _numeroMesa, string memory _nombre,
         
     }
 
-    
+
 
 /* 
 Faltan comprobaciones de atributos , modificadores y si la mesa está creada
@@ -263,6 +269,11 @@ crear presidente aquí??? como crear address vacía
         
         
     }
+    
+    function colegiosLength() public view returns(uint) {
+        return colegios.length;
+    }
+    
     
     /*
     comprobar si existe el colegio, introducimos el id, comprobamos si en ese id hay un nombre, si tiene algun byte, entonces devuelve true, es decir, hay colegio
