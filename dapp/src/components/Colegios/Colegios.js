@@ -18,6 +18,7 @@ const Colegios = (props) => {
             drizzleState={props.drizzleState}
             contract={"Elecciones"}
             method={"colegiosLength"}
+            
             render={cl=>(
                 
                     

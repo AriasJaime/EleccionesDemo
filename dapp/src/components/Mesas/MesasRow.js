@@ -1,13 +1,10 @@
 import {newContextComponents} from "@drizzle/react-components";
-import Mesa from "../Mesa/Mesa";
-import{BrowserRouter as Router,Route,Link} from "react-router-dom";
+
 const {ContractData} = newContextComponents;
 
-const Nave = ()=>(
-    <button><Link to="/mesas/mesa">Acceder</Link></button>
-)
+
 const MesasRow = (props) => {
-    const {drizzle, drizzleState, mesaIndex, mesaId,cole} = props;
+    const {drizzle, drizzleState, mesaIndex, mesaId,cole,setMesa} = props;
     if(cole === 99){
         console.log("dsadsa",cole)
         return <tr key={"MESA-" + mesaIndex}>
@@ -26,16 +23,7 @@ const MesasRow = (props) => {
                 <td>{datos.numeroVotantes}</td>
                 <td>{datos.numeroVotos}</td>
                 <td>{datos.actaFirmada}</td>
-                
-                <Router>
-                <Nave drizzle={drizzle} drizzleState={drizzleState}/>
-                   <Route path="/mesas/mesa">
-                   <button><Link to = "/mesas/">X</Link></button>
-                    <Mesa drizzle={drizzle}
-                        drizzleState={drizzleState}
-                        mesaPresi={datos.numeroMesa}/>
-                    </Route> 
-                </Router>
+                <td><button onClick={() => setMesa(datos.numeroMesa)}>Detalles</button></td>
             </>}
         />
 
@@ -59,15 +47,7 @@ const MesasRow = (props) => {
                 <td>{datos.numeroVotantes}</td>
                 <td>{datos.numeroVotos}</td>
                 <td>{datos.actaFirmada}</td>
-                <Router>
-                <Nave drizzle={drizzle} drizzleState={drizzleState}/>
-                   <Route path="/mesas/mesa">
-                       <button><Link to = "/mesas/">X</Link></button>
-                        <Mesa drizzle={drizzle}
-                                drizzleState={drizzleState}
-                                mesaPresi={datos.numeroMesa}/>
-                    </Route> 
-                </Router>
+                <td><button onClick={() => setMesa(datos.numeroMesa)}>Detalles</button></td>
             </>}
         />
 

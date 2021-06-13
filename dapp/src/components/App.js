@@ -13,6 +13,7 @@ import Mesas from './Mesas/Mesas';
 import MisCosas from './MisCosas/MisCosas';
 import Colegios from './Colegios/Colegios';
 import React, { useState } from 'react';
+import Mesa from "./Mesa/Mesa";
 
 import {newContextComponents} from "@drizzle/react-components";
 
@@ -66,8 +67,12 @@ const Navegacion = (props) => {
   
 
 function App() {
+ 
   
   const [cole,setCount] = useState(99);
+  const [nummesa,setMesa] = useState(999);
+  const [estado,setEstado] = useState(false);
+  var BloqueMesa;
   return (
     <DrizzleContext.Consumer>
       {drizzleContext => {
@@ -87,7 +92,13 @@ function App() {
   render={datos => {
     if(datos._rol === "Administrador" && cole === 99){
       console.log(cole)
+      console.log(nummesa)
       console.log(datos._rol)
+      if(nummesa===999){
+        BloqueMesa = <Mesas    nummesa={nummesa} setMesa={setMesa} cole={cole} drizzle={drizzle} drizzleState={drizzleState}/>
+      }else{
+        BloqueMesa =  <Mesa rol={datos._rol} mesaPresi={nummesa} setMesa={setMesa} drizzle={drizzle} drizzleState={drizzleState} />
+      }
       return(
         <div className="App">
               <Router>        
@@ -101,7 +112,7 @@ function App() {
                   <Candidatos   drizzle={drizzle} drizzleState={drizzleState}/>
                 </Route>
                 <Route path="/mesas/">
-                  <Mesas    cole={cole}    drizzle={drizzle} drizzleState={drizzleState}/>
+                  {BloqueMesa}
                 </Route>
                 <Route path="/resultados/">
                 <Resultados  cole={cole}  drizzle={drizzle} drizzleState={drizzleState}/>
@@ -113,7 +124,7 @@ function App() {
                 <MisCosas      drizzle={drizzle} drizzleState={drizzleState}/>
                 </Route>
                 <Route path="/empezar/">
-                <Empezar      drizzle={drizzle} drizzleState={drizzleState}/>
+                <Empezar    estado={estado} setEstado={setEstado}  drizzle={drizzle} drizzleState={drizzleState}/>
                 </Route>
                 
               </Router>
@@ -148,9 +159,15 @@ function App() {
     //             </Route>
                 
     //           </Router>
-    }else if(datos._rol === "Administrador" && cole !== 99 ){
+    }else if(datos._rol === "Administrador" && cole !== 99){
       console.log(cole)
       console.log(datos._rol)
+      
+      if(nummesa===999){
+        BloqueMesa = <Mesas    nummesa={nummesa} setMesa={setMesa} cole={cole} drizzle={drizzle} drizzleState={drizzleState}/>
+      }else{
+        BloqueMesa =  <Mesa rol={datos._rol} mesaPresi={nummesa} setMesa={setMesa} drizzle={drizzle} drizzleState={drizzleState} />
+      }
       return(
         <div className="App">
               <Router>        
@@ -164,7 +181,7 @@ function App() {
                   <Candidatos   drizzle={drizzle} drizzleState={drizzleState}/>
                 </Route>
                 <Route path="/mesas/">
-                  <Mesas     cole={cole} drizzle={drizzle} drizzleState={drizzleState}/>
+                  {BloqueMesa}
                 </Route>
                 <Route path="/resultados/">
                 <Resultados  cole={cole} drizzle={drizzle} drizzleState={drizzleState}/>
@@ -176,7 +193,7 @@ function App() {
                 <MisCosas      drizzle={drizzle} drizzleState={drizzleState}/>
                 </Route>
                 <Route path="/empezar/">
-                <Empezar      drizzle={drizzle} drizzleState={drizzleState}/>
+                <Empezar    estado={estado} setEstado={setEstado}  drizzle={drizzle} drizzleState={drizzleState}/>
                 </Route>
                 
               </Router>

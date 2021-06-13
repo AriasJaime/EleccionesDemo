@@ -22,9 +22,29 @@ const MisFunciones = ({drizzle, drizzleState}) => {
                         )
                     }else if(datos._rol === "Votante"){
                         return(
-                        <ContractForm drizzle={drizzle} drizzleState={drizzleState}
-                        contract="Elecciones" method="votaPartido"/>
-                        )
+                        <ContractData
+                        drizzle={drizzle}
+                        drizzleState={drizzleState}
+                        contract={"Elecciones"}
+                        method={"empezado"}
+                        methodArgs={[]}
+                        render={x => {
+                        if(x === true){
+                            return(
+                                <ContractForm drizzle={drizzle} drizzleState={drizzleState}
+                                contract="Elecciones" method="votaPartido"/>
+                                )
+                            }else{
+                                return(
+                                    
+                                 <h3>Las elecciones aún no han comenzado</h3>
+
+                                )     
+                            }
+                        }
+                    }
+                        />)
+                           
                     }else if(datos._rol === "Administrador"){
                         return(
                         <>

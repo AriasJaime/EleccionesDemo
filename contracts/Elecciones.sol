@@ -9,6 +9,7 @@ contract Elecciones {
     
     string public year;
     
+    bool public empezado;
     
     struct DatosVotante{
         address direccion;
@@ -85,6 +86,7 @@ constructor(string memory _nombre, string memory _year){
     admin= msg.sender;
     nombre= _nombre;
     year= _year;
+    empezado= false;
     
 }
 
@@ -94,6 +96,11 @@ modifier onlyAdmin() {
     _;
 }
 
+modifier onlyEmpezado(){
+    require(empezado == true, "Las elecciones no han empezado");
+    
+    _;
+}
 function creaPartido(string memory _nombrePartido) onlyAdmin public returns(uint){
     bytes memory bn = bytes(_nombrePartido);
     require(bn.length != 0, "El nombre del partido no puede estar vacio");
@@ -180,7 +187,7 @@ function creaVotante(address _direccion,uint _numeroMesa, string memory _nombre,
     }
     
     
-    function votaPartido(address _direccionVotante, string memory _partido) public{
+    function votaPartido(address _direccionVotante, string memory _partido) onlyEmpezado public{
         
         require(partidoExiste(_partido) == true,"El partido no existe");
         require(votanteExiste(_direccionVotante) == true,"El votante no existe");
@@ -319,6 +326,8 @@ crear presidente aquí??? como crear address vacía
          return b.length != 0 ;
      }
     
+    
+    
     function quienSoy()  public view returns (string memory _nombre, address _direccion,uint _idColegio, uint _numeroMesa,string memory _rol) {
         DatosVotante memory datosV = datosVotante[msg.sender];
         DatosPresidente memory datosP = datosPresidente[msg.sender];
@@ -347,6 +356,17 @@ crear presidente aquí??? como crear address vacía
         _numeroMesa=0;
         _rol="Usuario no registrado";    
         }
+    }
+    
+    
+    function empezarElecciones() onlyAdmin public {
+        empezado = true;
+        
+    }
+    
+    function finalizarElecciones() onlyAdmin public {
+        empezado = false;
+      
     }
     
     

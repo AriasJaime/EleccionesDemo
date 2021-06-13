@@ -4,7 +4,7 @@ import MesasRow from "./MesasRow";
 const {ContractData} = newContextComponents;
 
 const MesasBody = (props) => {
-    const {drizzle, drizzleState,mesasLength,mesaColegioLength,cole} = props;
+    const {drizzle, drizzleState,mesasLength,mesaColegioLength,cole,setMesa,nummesa} = props;
     if(cole === 99){
         let rows = [];
     for (let i = 0; i < mesasLength; i++) {
@@ -18,6 +18,8 @@ const MesasBody = (props) => {
                                        drizzleState={drizzleState}
                                        mesaIndex={i}
                                        mesaId={id}
+                                       mesa={nummesa} 
+                                       setMesa={setMesa}
                                        cole={cole}/>
             }
         />);
@@ -37,7 +39,9 @@ const MesasBody = (props) => {
                                         drizzleState={drizzleState}
                                         mesaIndex={i}
                                         cole={cole}
-                                        mesaId={id}/>
+                                        mesaId={id}
+                                        nummesa = {nummesa}
+                                        setMesa={setMesa}/>
             }
             />
         )

@@ -5,7 +5,7 @@ import MesasBody from "./MesasBody";
 const{ContractData}=newContextComponents;
 
 const Mesas = (props) => {
-    const {cole} = props;
+    const {cole,nummesa,setMesa} = props;
     if(cole === 99){
         console.log("if",cole)
     return(
@@ -25,6 +25,8 @@ const Mesas = (props) => {
                     <MesasBody drizzle={props.drizzle}
                                  drizzleState={props.drizzleState}
                                  mesasLength={ml}
+                                 nummesa={nummesa}
+                                 setMesa={setMesa}
                                  cole={cole}/>
                 </table>
             )
@@ -52,6 +54,8 @@ const Mesas = (props) => {
                       <MesasBody drizzle={props.drizzle}
                                    drizzleState={props.drizzleState}
                                    mesaColegioLength={ml}
+                                   nummesa={nummesa}
+                                   setMesa={setMesa}
                                    cole={cole}/>
                   </table>
               )
