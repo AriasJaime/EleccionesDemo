@@ -118,13 +118,13 @@ module.exports = async callback => {
         await elecciones.creaVotante(juanaAccount,"0","Juana Jimenez","Rafael Calvo 12", "123456789C");
         await elecciones.creaVotante(mariaAccount,"3","María gutierrez","Alonso Cano 1", "123456789D");
         await elecciones.creaVotante(pedroAccount,"2","Pedro","Alonso Cano 1", "123456789F");
-        await elecciones.creaVotante(jimenaAccount,"10","Jimena","Alonso Cano 1", "123456789D");
-        await elecciones.creaVotante(luciaAccount,"5","lucia","Alonso Cano 1", "123456789D");
-        await elecciones.creaVotante(miriamAccount,"10","Miriam","Alonso Cano 1", "123456789D");
-        await elecciones.creaVotante(lauraAccount,"0","Laura","Alonso Cano 1", "123456789D");
-        await elecciones.creaVotante(chascaAccount,"9","Chasca ","Alonso Cano 1", "123456789D");
-        await elecciones.creaVotante(lucasAccount,"8","Lucas ","Alonso Cano 1", "123456789D");
-        await elecciones.creaVotante(pacoAccount,"1","Paco ","Alonso Cano 1", "123456789D");
+        await elecciones.creaVotante(jimenaAccount,"10","Jimena","Alonso Cano 1", "123456789G");
+        await elecciones.creaVotante(luciaAccount,"5","lucia","Alonso Cano 1", "123456789H");
+        await elecciones.creaVotante(miriamAccount,"10","Miriam","Alonso Cano 1", "123456789I");
+        await elecciones.creaVotante(lauraAccount,"0","Laura","Alonso Cano 1", "123456789J");
+        await elecciones.creaVotante(chascaAccount,"9","Chasca ","Alonso Cano 1", "123456789K");
+        await elecciones.creaVotante(lucasAccount,"8","Lucas ","Alonso Cano 1", "123456789L");
+        await elecciones.creaVotante(pacoAccount,"1","Paco ","Alonso Cano 1", "123456789M");
         let votantes = await elecciones.votantesLength();
         console.log(votantes);
         

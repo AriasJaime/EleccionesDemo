@@ -6,16 +6,18 @@ const{ContractData}=newContextComponents;
 
 const Resultados = (props) => (
     <section className="AppResultados">
+        <div class="px-5">
         <h2>
-            Resultados
+            Resultados generales:
         </h2>
+        <div class="pt-4">
         <ContractData
             drizzle={props.drizzle}
             drizzleState={props.drizzleState}
             contract={"Elecciones"}
             method={"partidosLength"}
             render={ml=>(
-                <table>
+                <table class="table table-hover">
                     <ResultadosHead/>
                     <ResultadosBody drizzle={props.drizzle}
                                  drizzleState={props.drizzleState}
@@ -24,7 +26,10 @@ const Resultados = (props) => (
             )
             }
             />
+            </div>
+            </div>
     </section>
 );
+
 
 export default Resultados;

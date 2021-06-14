@@ -32,7 +32,24 @@ const MisFunciones = ({drizzle, drizzleState}) => {
                         if(x === true){
                             return(
                                 <ContractForm drizzle={drizzle} drizzleState={drizzleState}
-                                contract="Elecciones" method="votaPartido"/>
+                                contract="Elecciones" method="votaPartido"
+                                render={({inputs, inputTypes, state, handleInputChange, handleSubmit}) => {
+                                    const labels = ["Address del votante:","Partido a votar:"];
+                                    return (
+                                      
+                                    <form onSubmit={handleSubmit}>
+                                        <div class="form-group"> 
+                                        {inputs.map((input, index) => (
+                                            <p> <label class="pb-2">{labels[index]}</label>
+                                                <input key={input.name} class="form-control" type={inputTypes[index]} name={input.name}
+                                                        value={state[input.name]} placeholder={input.name}
+                                                        onChange={handleInputChange}
+                                                /> </p> ))}
+                                        </div>
+                                        <button key="submit" type="button" class="btn btn-outline-dark" onClick={handleSubmit}>Enviar voto</button>
+                                    </form>
+                                    )
+                                }}/>
                                 )
                             }else{
                                 return(
@@ -48,7 +65,6 @@ const MisFunciones = ({drizzle, drizzleState}) => {
                     }else if(datos._rol === "Administrador"){
                         return(
                         <>
-                        <li>No hay nada para ti</li>
                         
                         </>
                         )

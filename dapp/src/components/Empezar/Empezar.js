@@ -39,11 +39,13 @@ const Empezar = (props) => {
             </>
             }
             />
-            <div>
-                <button onClick={() => empezarElecciones(props)}>Empezar</button>
-            </div>
-            <div>
-                <button onClick={() => finalizarElecciones(props)}>Finalizar</button>
+            <div class="row">
+                <div class="col-6 pt-4 d-flex justify-content-end">
+                    <button class="btn btn-outline-dark btn-lg" onClick={() => empezarElecciones(props)}>Empezar</button>
+                </div>
+                <div class="col-6 pt-4 d-flex justify-content-start">
+                    <button  class="btn btn-outline-dark btn-lg"onClick={() => finalizarElecciones(props)}>Finalizar</button>
+                </div>
             </div>
         </div>
         

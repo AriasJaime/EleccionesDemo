@@ -1,18 +1,19 @@
-.App {
-  margin: 10px;
-}
-
 .AppHeader {
   text-align: center;
   color: black;
   font-size: large;
 }
 
+/* .App {
+  background-color: #E5F2F8;
+} 
+
+
 .App-link {
   color: #61dafb;
 }
 
-nav ul {
+/* nav ul {
   list-style-type: none;
   margin: 0;
   padding: 0;
@@ -32,7 +33,6 @@ nav ul li a {
   text-decoration: none;
 }
 
-/* Change the link color to #111 on hover */
 nav ul li a:hover {
   background-color: #aaa;
 }
@@ -56,4 +56,4 @@ tr:nth-child(even) {
 
 th {
   background-color: #f2f2f2;
-}
+} */

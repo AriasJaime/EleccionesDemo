@@ -7,12 +7,15 @@ import MisFunciones from "./MisFunciones";
 const MisCosas = (props) => {
     const {drizzle, drizzleState} = props;
     return <section className="AppMisCosas">
-        <h2>Mis Cosas</h2>
-
-        <MisDatos drizzle={drizzle}
-                  drizzleState={drizzleState}/>
-        <MisFunciones drizzle = {drizzle}
-                      drizzleState={drizzleState}/>
+        
+        <div class="pt-4">    
+            <MisDatos drizzle={drizzle}
+                    drizzleState={drizzleState}/>
+        </div>
+        <div class="pt-4">
+            <MisFunciones drizzle = {drizzle}
+                        drizzleState={drizzleState}/>
+        </div>
     </section>;
 }
 

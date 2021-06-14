@@ -1,14 +1,13 @@
 const MesasHead = () =>
-<thead>
+<thead >
    <tr>
-        <th>#</th>
-        <th>Colegio Electoral</th>
-        <th>Numero de Mesa</th>
-        <th>Presidente</th>
-        <th>Numero Votantes</th>
-        <th>Numero Votos</th>
-        <th>Acta Firmada</th>
-        <th></th>
+        <th scope="col">#</th>
+        <th scope="col">Colegio</th>
+        <th scope="col">Nº Mesa</th>
+        <th scope="col">Presidente</th>
+        <th scope="col">Nº Votantes</th>
+        <th scope="col">Nº Votos</th>
+        <th scope="col"></th>
    </tr> 
 </thead>
 export default MesasHead;

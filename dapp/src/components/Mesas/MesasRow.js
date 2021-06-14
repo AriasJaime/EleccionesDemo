@@ -22,8 +22,8 @@ const MesasRow = (props) => {
                 <td>{datos.presidente}</td>
                 <td>{datos.numeroVotantes}</td>
                 <td>{datos.numeroVotos}</td>
-                <td>{datos.actaFirmada}</td>
-                <td><button onClick={() => setMesa(datos.numeroMesa)}>Detalles</button></td>
+                
+                <td><button class="btn btn-outline-dark btn-sm" onClick={() => setMesa(datos.numeroMesa)}>Detalles</button></td>
             </>}
         />
 
@@ -46,8 +46,7 @@ const MesasRow = (props) => {
                 <td>{datos.presidente}</td>
                 <td>{datos.numeroVotantes}</td>
                 <td>{datos.numeroVotos}</td>
-                <td>{datos.actaFirmada}</td>
-                <td><button onClick={() => setMesa(datos.numeroMesa)}>Detalles</button></td>
+                <td><button class="btn btn-outline-dark" onClick={() => setMesa(datos.numeroMesa)}>Detalles</button></td>
             </>}
         />
 

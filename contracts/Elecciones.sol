@@ -344,17 +344,17 @@ crear presidente aquí??? como crear address vacía
             _numeroMesa= datosP.numeroMesa;
             _rol = "Presidente";
         }else if(msg.sender == admin){
-        _nombre="admin";
-        _direccion=admin;
-        _idColegio=0;
-        _numeroMesa=0;
-        _rol="Administrador";
+            _nombre="admin";
+            _direccion=admin;
+            _idColegio=0;
+            _numeroMesa=0;
+            _rol="Administrador";
         }else{
-        _nombre="Usuario no registrado";
-        _direccion=0x0000000000000000000000000000000000000000;
-        _idColegio=0;
-        _numeroMesa=0;
-        _rol="Usuario no registrado";    
+            _nombre="Usuario no registrado";
+            _direccion=0x0000000000000000000000000000000000000000;
+            _idColegio=0;
+            _numeroMesa=0;
+            _rol="Usuario no registrado";    
         }
     }
     
