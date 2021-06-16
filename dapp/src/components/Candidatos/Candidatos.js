@@ -1,6 +1,5 @@
 import{newContextComponents} from "@drizzle/react-components";
-import CandidatosHead from "./CandidatosHead";
-import CandidatosBody from "./CandidatosBody";
+import CandidatosTable from "./CandidatosTable";
 
 const{ContractData,ContractForm}=newContextComponents;
 
@@ -10,7 +9,7 @@ const Candidatos = (props) => (
             Candidatos
         </h2>
 
-        <div class="row pt-4">
+        <div class="row pt-4 px-3">
         <div class="pt-2 col-md-3 d-flex justify-content-center">
             <ContractForm drizzle={props.drizzle} drizzleState={props.drizzleState}
                                     contract="Elecciones" method="creaPartido"
@@ -33,21 +32,7 @@ const Candidatos = (props) => (
                                     }}/>
         </div>
         <div class="col-md-9 pt-4 pt-md-0">
-            <ContractData
-                drizzle={props.drizzle}
-                drizzleState={props.drizzleState}
-                contract={"Elecciones"}
-                method={"partidosLength"}
-                render={ml=>(
-                    <table class="table table-hover">
-                        <CandidatosHead/>
-                        <CandidatosBody drizzle={props.drizzle}
-                                    drizzleState={props.drizzleState}
-                                    partidosLength={ml}/>
-                    </table>
-                )
-                }
-                />
+            <CandidatosTable drizzle={props.drizzle} drizzleState={props.drizzleState}/>
             </div>
         </div>
     </section>

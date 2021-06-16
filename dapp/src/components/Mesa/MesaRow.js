@@ -4,8 +4,8 @@ const {ContractData} = newContextComponents;
 
 const MesaRow = (props) => {
     const {drizzle, drizzleState, votanteIndex, votanteAddr} = props;
-    return <tr key={"VOT-" + votanteIndex}>
-        <th>V<sub>{votanteIndex}</sub></th>
+    return <tr key={"MES-" + votanteIndex}>
+        <th>M<sub>{votanteIndex}</sub></th>
 
         <ContractData
             drizzle={drizzle}

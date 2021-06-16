@@ -25,7 +25,7 @@ const empezarElecciones = (props) => {
 const Empezar = (props) => {
     
     return(
-        <div>
+        <div class="px-5">
             <ContractData
             drizzle={props.drizzle}
             drizzleState={props.drizzleState}

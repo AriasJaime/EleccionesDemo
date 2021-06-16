@@ -13,7 +13,7 @@ const Mesas = (props) => {
         <h2  class="ps-5">
             Mesas
         </h2>
-        <div class="row pt-4">
+        <div class="row pt-4 px-3">
             <div class="col-md-3 pt-2 d-flex justify-content-center">
                 <ContractForm drizzle={drizzle} drizzleState={drizzleState}
                                         contract="Elecciones" method="creaMesa"
@@ -43,7 +43,8 @@ const Mesas = (props) => {
                     method={"mesasLength"}
                     cole={cole}
                     render={ml=>(
-                        <table class="table table-responsive table-hover">
+                        <div class="table-responsive">
+                        <table class="table table-hover">
                             <MesasHead/>
                             <MesasBody drizzle={drizzle}
                                         drizzleState={drizzleState}
@@ -52,6 +53,7 @@ const Mesas = (props) => {
                                         setMesa={setMesa}
                                         cole={cole}/>
                         </table>
+                        </div>
                     )
                     }
                     />
@@ -66,7 +68,7 @@ const Mesas = (props) => {
               <h2 class="ps-5">
                   Mesas del colegio: {nom}
               </h2>
-              <div class="row pt-4">
+              <div class="row pt-4 px-3">
               <div class="col-md-3 pt-2 d-flex justify-content-center">
                 <ContractForm drizzle={drizzle} drizzleState={drizzleState}
                                 contract="Elecciones" method="creaMesa"
@@ -97,7 +99,8 @@ const Mesas = (props) => {
                     cole={cole}
                     methodArgs={[cole]}
                     render={ml=>(
-                        <table class="table table-responsive table-hover">
+                        <div class="table-responsive">
+                        <table class="table table-hover">
                             <MesasHead/>
                             <MesasBody drizzle={drizzle}
                                         drizzleState={drizzleState}
@@ -106,6 +109,7 @@ const Mesas = (props) => {
                                         setMesa={setMesa}
                                         cole={cole}/>
                         </table>
+                        </div>
                     )
                     }
                     />

@@ -15,7 +15,7 @@ const Votantes = (props) => {
                 Votantes
             </h2>
         </div>
-        <div class="row pt-4">
+        <div class="row pt-4 px-3">
             <div class="col-md-3 pt-2 d-flex justify-content-center">
                 <ContractForm drizzle={drizzle} drizzleState={drizzleState}
                                         contract="Elecciones" method="creaVotante"
@@ -70,7 +70,7 @@ const Votantes = (props) => {
             <h2 class="ps-5">
                 Votantes del colegio: {nom}
             </h2>
-            <div class="row pt-4">
+            <div class="row pt-4 px-3">
                 <div class="col-md-3 pt-2 d-flex justify-content-center">
                     <ContractForm drizzle={drizzle} drizzleState={drizzleState}
                                             contract="Elecciones" method="creaVotante"

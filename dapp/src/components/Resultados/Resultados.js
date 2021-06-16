@@ -8,28 +8,28 @@ const Resultados = (props) => (
     <section className="AppResultados">
         <div class="px-5">
         <h2>
-            Resultados generales:
+            Resultados
         </h2>
-        <div class="pt-4">
+        
         <ContractData
             drizzle={props.drizzle}
             drizzleState={props.drizzleState}
             contract={"Elecciones"}
             method={"partidosLength"}
             render={ml=>(
+                <div class="table-responsive">
                 <table class="table table-hover">
                     <ResultadosHead/>
                     <ResultadosBody drizzle={props.drizzle}
                                  drizzleState={props.drizzleState}
                                  partidosLength={ml}/>
                 </table>
+                </div>
             )
             }
             />
-            </div>
-            </div>
+        </div>
     </section>
 );
-
 
 export default Resultados;

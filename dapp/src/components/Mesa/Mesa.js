@@ -15,7 +15,7 @@ const Mesa = (props) => {
                 <h2 class="ps-5">
                     Mesa número: {mesaPresi}
                 </h2>
-                <div class="row pt-4">
+                <div class="row pt-4 px-3">
                     <div class="col-md-3 pt-2 d-flex justify-content-center">
                         <ContractForm drizzle={drizzle} drizzleState={drizzleState}
                                         contract="Elecciones" method="asignaPresidenteMesa"
@@ -45,7 +45,8 @@ const Mesa = (props) => {
                             method={"votanteMesaLength"}
                             methodArgs={[mesaPresi]}
                             render={vl=>(
-                                <table class="table table-responsive table-hover">
+                                <div class="table-responsive">
+                                <table class="table table-hover">
                                     <MesaHead/>
                                     <MesaBody drizzle={drizzle}
                                                 drizzleState={drizzleState}
@@ -54,6 +55,7 @@ const Mesa = (props) => {
                                                 setMesa={setMesa}
                                                 mesaPresi={mesaPresi}/>
                                 </table>
+                                </div>
                             )
                             }
                             />
@@ -74,7 +76,8 @@ const Mesa = (props) => {
             method={"votanteMesaLength"}
             methodArgs={[mesaPresi]}
             render={vl=>(
-                <table class="table table-responsive table-hover">
+                <div class="table-responsive">
+                <table class="table table-hover">
                     <MesaHead/>
                     <MesaBody drizzle={drizzle}
                                  drizzleState={drizzleState}
@@ -83,6 +86,7 @@ const Mesa = (props) => {
                                  setMesa={setMesa}
                                  mesaPresi={mesaPresi}/>
                 </table>
+                </div>
             )
             }
             />

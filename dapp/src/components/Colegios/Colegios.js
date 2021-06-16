@@ -11,7 +11,7 @@ const Colegios = (props) => {
         <div class="py-3 ps-5">
             <button type="button" class="btn btn-outline-primary" onClick={() => setCount(99)}>Volver al inicio</button>
         </div>
-        <div class="row pt-4">
+        <div class="row pt-4 px-3">
             <div class="col-md-3 pt-2 d-flex justify-content-center">
                     
                     <ContractForm drizzle={drizzle} drizzleState={drizzleState}

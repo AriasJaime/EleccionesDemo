@@ -187,8 +187,8 @@ function creaVotante(address _direccion,uint _numeroMesa, string memory _nombre,
     }
     
     
-    function votaPartido(address _direccionVotante, string memory _partido) onlyEmpezado public{
-        
+    function votaPartido(string memory _partido) onlyEmpezado public{
+        address _direccionVotante = msg.sender;
         require(partidoExiste(_partido) == true,"El partido no existe");
         require(votanteExiste(_direccionVotante) == true,"El votante no existe");
         require(datosVotante[_direccionVotante].votado == false, "El votante ya ha votado");

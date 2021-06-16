@@ -24,8 +24,8 @@ const Navegacion = (props) => {
   const {rol,cole} = props;
   if(rol === "Administrador" && cole === 99){
   return(
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-      <div class="ps-5">
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark ps-0 ps-md-5">
+      <div class="ps-3 ps-md-5">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -45,15 +45,15 @@ const Navegacion = (props) => {
       )
   }else if(rol === "Administrador" && cole !== 99){
     return(
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-      <div class="ps-5">
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark ps-0 ps-md-5">
+      <div class="ps-3 ps-md-5">
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       </div>
       <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
-              <li class="nav-item active"><Link class="nav-link" style={{color: "white"}} to="/">Home</Link></li>
+              <li class="nav-item active"><Link class="nav-link" style={{color: "white"}} to="/">Inicio</Link></li>
               <li class="nav-item active"><Link class="nav-link" style={{color: "white"}} to="/candidatos">Candidatos</Link></li>
               <li class="nav-item active"><Link class="nav-link" style={{color: "white"}} to="/votantes">Votantes</Link></li>
               <li class="nav-item active"><Link class="nav-link" style={{color: "white"}} to="/mesas">Mesas</Link></li>
@@ -66,7 +66,7 @@ const Navegacion = (props) => {
       )
   }else if(rol === "Presidente"){
     return(
-      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark ps-5">
         <ul  class="navbar-nav">
           <li class="nav-item active"><Link class="nav-link" style={{color: "white"}} to="/miscosas">Mi mesa</Link></li>
         </ul>
@@ -74,7 +74,7 @@ const Navegacion = (props) => {
       )
   }else{
     return(
-      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark ps-5">
         <ul  class="navbar-nav">
           <li class="nav-item active"><Link class="nav-link" style={{color: "white"}} to="/miscosas">Votar</Link></li>
         </ul>
