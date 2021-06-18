@@ -19,7 +19,8 @@ const ColegiosRow = (props) => {
             methodArgs={[colegioId.id]}
             render={datos => <>
                 <div>
-                    <button class="btn btn-outline-dark btn-lg"  onClick={() => onClick(datos)}>{datos.nombre}</button> 
+                    <button class="btn btn-outline-dark btn-lg"  onClick={() => onClick(datos)}>
+                    {datos.nombre}</button> 
                 </div>
             </>}
         />

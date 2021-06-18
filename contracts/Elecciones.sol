@@ -52,7 +52,6 @@ contract Elecciones {
       address presidente;
       uint numeroVotantes;
       uint numeroVotos;
-      bool actaFirmada;
   }
     
     
@@ -96,12 +95,23 @@ modifier onlyAdmin() {
     _;
 }
 
+modifier onlyVotante() {
+    require(msg.sender != admin ,"Solo permitido al votante");
+    
+    _;
+}
 modifier onlyEmpezado(){
     require(empezado == true, "Las elecciones no han empezado");
     
     _;
 }
-function creaPartido(string memory _nombrePartido) onlyAdmin public returns(uint){
+
+modifier onlyFinalizado(){
+    require(empezado == false, "Las elecciones han empezado");
+    _;
+}
+
+function creaPartido(string memory _nombrePartido) onlyAdmin onlyFinalizado public returns(uint){
     bytes memory bn = bytes(_nombrePartido);
     require(bn.length != 0, "El nombre del partido no puede estar vacio");
     uint _votosIniciales = 0;
@@ -127,7 +137,7 @@ function partidoExiste(string memory _nombrePartido) private view returns(bool){
          return b.length != 0 ;
      }
 
-function creaVotante(address _direccion,uint _numeroMesa, string memory _nombre, string memory _calle,string memory _dni) onlyAdmin public {
+function creaVotante(address _direccion,uint _numeroMesa, string memory _nombre, string memory _calle,string memory _dni) onlyAdmin  onlyFinalizado public {
         
         
         
@@ -167,9 +177,7 @@ function creaVotante(address _direccion,uint _numeroMesa, string memory _nombre,
     
     function votanteExiste(address _direccion) private view returns(bool){
          string memory _bnombre = datosVotante[_direccion].nombre;
-         
          bytes memory b = bytes(_bnombre);
-         
          return b.length != 0 ;
      }
 
@@ -187,21 +195,22 @@ function creaVotante(address _direccion,uint _numeroMesa, string memory _nombre,
     }
     
     
-    function votaPartido(string memory _partido) onlyEmpezado public{
+    function votaPartido(string memory _partido) onlyEmpezado onlyVotante public{
+        //se recoge la direccion del usuario que llama al método
         address _direccionVotante = msg.sender;
+        //se comprueba que el partido y el votante exista
         require(partidoExiste(_partido) == true,"El partido no existe");
         require(votanteExiste(_direccionVotante) == true,"El votante no existe");
+        //se comprueba que el usuario no ha votado
         require(datosVotante[_direccionVotante].votado == false, "El votante ya ha votado");
-        require(_direccionVotante == msg.sender,"La direccion introducida no es la tuya");
+        //se ejerce el voto
         datosPartidos[_partido].votos ++;
         datosVotante[_direccionVotante].votado = true;
-        
         //actualizar el numero de votos dentro de los colegios y las mesas correspondientes a ese votante;
         mesas[datosVotante[_direccionVotante].numeroMesa].numeroVotos ++;
         datosMesa[datosVotante[_direccionVotante].numeroMesa].numeroVotos ++;
         colegios[datosVotante[_direccionVotante].idColegio].numeroVotos ++;
-        colegioElectoral[datosVotante[_direccionVotante].idColegio].numeroVotos ++;
-        
+        colegioElectoral[datosVotante[_direccionVotante].idColegio].numeroVotos ++;   
     }
 
 
@@ -210,7 +219,7 @@ function creaVotante(address _direccion,uint _numeroMesa, string memory _nombre,
 Faltan comprobaciones de atributos , modificadores y si la mesa está creada
 crear presidente aquí??? como crear address vacía
 */
-    function creaMesa(uint _idColegio) onlyAdmin public{
+    function creaMesa(uint _idColegio) onlyAdmin  onlyFinalizado public{
         
         // bytes memory bc = bytes(_colegio);
         // require(bc.length != 0, "El colegio no puede ser vacio");
@@ -224,7 +233,6 @@ crear presidente aquí??? como crear address vacía
         address _presidente = 0x0000000000000000000000000000000000000000;
         uint _numeroVotantes = 0;
         uint _numeroVotos = 0;
-        bool _actaFirmada = false;
         
         require(_numeroVotos == 0, "El numero de votos iniciales debe ser 0");
         require(_numeroVotantes == 0, "El numero de votantes iniciales debe ser 0");
@@ -232,7 +240,7 @@ crear presidente aquí??? como crear address vacía
         //Cogemos el length del numero de mesas de ese colegio, sera el numero de la nueva mesa
         uint _numeroMesa = mesas.length;
         
-        Mesa memory mesa = Mesa(_idColegio,_numeroMesa,_presidente,_numeroVotantes,_numeroVotos,_actaFirmada);
+        Mesa memory mesa = Mesa(_idColegio,_numeroMesa,_presidente,_numeroVotantes,_numeroVotos);
         
         datosMesa[_numeroMesa] = mesa;
         
@@ -254,7 +262,7 @@ crear presidente aquí??? como crear address vacía
     }
     
     
-    function creaColegio(uint id, string memory _nombre,string memory _direccion) onlyAdmin public{
+    function creaColegio(uint id, string memory _nombre,string memory _direccion) onlyAdmin onlyFinalizado public{
         
         address _admin = admin;
         uint numeroMesas = 0;
@@ -307,7 +315,7 @@ crear presidente aquí??? como crear address vacía
     -Que pasa si creo el mismo presidente en otra mesa??
     
     */
-    function asignaPresidenteMesa(string memory _nombre,address _direccionPresidente,uint  _numeroMesa) onlyAdmin public{
+    function asignaPresidenteMesa(string memory _nombre,address _direccionPresidente,uint  _numeroMesa) onlyAdmin onlyFinalizado public{
         
         
         
@@ -328,7 +336,8 @@ crear presidente aquí??? como crear address vacía
     
     
     
-    function quienSoy()  public view returns (string memory _nombre, address _direccion,uint _idColegio, uint _numeroMesa,string memory _rol) {
+    function quienSoy()  public view returns (string memory _nombre, 
+    address _direccion,uint _idColegio, uint _numeroMesa,string memory _rol) {
         DatosVotante memory datosV = datosVotante[msg.sender];
         DatosPresidente memory datosP = datosPresidente[msg.sender];
         if(votanteExiste(msg.sender) == true){

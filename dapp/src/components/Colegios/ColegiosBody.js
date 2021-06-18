@@ -37,5 +37,4 @@ const ColegiosBody = (props) => {
     </div>
     )
 };
-
 export default ColegiosBody;

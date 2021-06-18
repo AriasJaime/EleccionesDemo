@@ -18,15 +18,8 @@ module.exports = async callback => {
         //Crear partidos
 
         console.log("Añadir a dos candidatos:");
-        let ppAccount = accounts[1];
-        let psoeAccount = accounts[2];
-        let podemosAccount = accounts[3];
-        let csAccount = accounts[4];
-        console.log("Cuenta del PP =", ppAccount);
-        console.log("Cuenta del PSOE =", psoeAccount);
-        console.log("Cuenta de Podemos =", podemosAccount);
-        console.log("Cuenta de Ciudadanos =", csAccount);
-        await elecciones.creaPartido("PP",{from: admin});
+        
+        await elecciones.creaPartido("PP");
         await elecciones.creaPartido("PSOE");
         await elecciones.creaPartido("Podemos");
         await elecciones.creaPartido("Ciudadanos");

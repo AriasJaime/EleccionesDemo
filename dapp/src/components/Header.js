@@ -11,7 +11,7 @@ const Header = props => (
                 contract={"Elecciones"}
                 method={"nombre"}
             />
-             - 
+              - 
             <ContractData
                 drizzle={props.drizzle}
                 drizzleState={props.drizzleState}
