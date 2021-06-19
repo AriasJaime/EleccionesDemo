@@ -82,11 +82,7 @@ const Navegacion = (props) => {
       )
   }
 }
-
-
-
-
-  
+ 
 
 function App() {
  
