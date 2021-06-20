@@ -74,8 +74,8 @@ contract('Elecciones:', accounts =>{
 
         it("Asignar presidente a mesas electorales", async()=>{
 
-            let presidente1 = accounts[9];
-            let presidente2 = accounts[8];
+            let presidente1 = accounts[2];
+            let presidente2 = accounts[3];
             await elecciones.asignaPresidenteMesa("presidente1",presidente1,0)
             await elecciones.asignaPresidenteMesa("presidente2",presidente2,1)
 
@@ -87,8 +87,8 @@ contract('Elecciones:', accounts =>{
         })
 
         it("Crear votantes", async()=>{
-        let jaimeAccount = accounts[5];
-        let carlosAccount = accounts[6];
+        let jaimeAccount = accounts[4];
+        let carlosAccount = accounts[5];
         await elecciones.creaVotante(jaimeAccount,0,"Jaime","José Abascal 8", "123456789A");
         await elecciones.creaVotante(carlosAccount,1,"Carlos","Iglesia 2", "123456789B");
         
