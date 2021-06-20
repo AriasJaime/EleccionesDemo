@@ -9,7 +9,8 @@ const options = {
     web3: {
         fallback: {
             type: "ws",
-            url: "ws://127.0.0.1:7545"
+            //url: "ws://127.0.0.1:7545"
+            url: "https://sandbox.truffleteams.com/d543ee28-7dd5-4e40-af1b-00786b0abfdd"
             }
     }
 }

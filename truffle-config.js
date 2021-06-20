@@ -47,6 +47,12 @@ module.exports = {
      port: 7545,            // Standard Ethereum port (default: none)
      network_id: "*"       // Any network (default: none)
     },
+    
+    teams: {
+      url:
+        "https://sandbox.truffleteams.com/d543ee28-7dd5-4e40-af1b-00786b0abfdd",
+      network_id: 	1624187124275,
+    },
     // Another network with more advanced options...
     // advanced: {
     // port: 8777,             // Custom port
