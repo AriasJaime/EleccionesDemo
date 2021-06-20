@@ -75,7 +75,7 @@ contract('Elecciones:', accounts =>{
         it("Asignar presidente a mesas electorales", async()=>{
 
             let presidente1 = accounts[9];
-            let presidente2 = accounts[10];
+            let presidente2 = accounts[8];
             await elecciones.asignaPresidenteMesa("presidente1",presidente1,0)
             await elecciones.asignaPresidenteMesa("presidente2",presidente2,1)
 
